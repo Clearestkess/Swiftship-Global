@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — SwiftShip Global</title>
+  <link rel="stylesheet" href="/admin/login.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Firebase SDK v9 compat (same as main page) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <!-- Firebase config + helpers -->
+  <script src="/js/firebase-config.js"></script>
+</head>
+<body>
+  <!-- Background -->
+  <div class="login-bg">
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+    <div class="bg-circle c3"></div>
+  </div>
+
+  <div class="login-wrapper">
+    <!-- Branding -->
+    <div class="brand">
+      <div class="brand-icon"><i class="fas fa-shipping-fast"></i></div>
+      <div class="brand-text">
+        <span class="brand-name">SwiftShip</span>
+        <span class="brand-tag">GLOBAL LOGISTICS</span>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="login-card">
+      <div class="card-header">
+        <h1>Admin Portal</h1>
+        <p>Sign in with an authorized Firebase admin account to manage protected logistics data</p>
+      </div>
+
+      <!-- Banners -->
+      <div id="errorBanner" class="alert alert-error" style="display:none">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorMsg">Invalid credentials.</span>
+      </div>
+      <div id="successBanner" class="alert alert-success" style="display:none">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMsg">Success!</span>
+      </div>
+
+      <!-- Checking auth state indicator -->
+      <div id="authCheckingBanner" class="alert" style="display:flex;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        <span style="margin-left:8px">Checking authentication…</span>
+      </div>
+
+      <!-- Honeypot -->
+      <input type="text" name="hp_name" id="hp_name" style="display:none;visibility:hidden" tabindex="-1" autocomplete="off" />
+
+      <form id="loginForm" novalidate style="display:none">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="email" placeholder="admin@swiftshipglobal.com" autocomplete="email" required />
+          </div>
+          <span class="field-error" id="emailError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="password" placeholder="Your password" autocomplete="current-password" required />
+            <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">
+              <i class="fas fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+          <span class="field-error" id="passwordError"></span>
+        </div>
+
+        <div class="form-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberMe" />
+            <span>Remember email</span>
+          </label>
+          <button type="button" class="link-btn" id="forgotBtn">Forgot password?</button>
+        </div>
+
+        <button type="submit" class="btn-login" id="loginBtn">
+          <span id="btnText"><i class="fas fa-sign-in-alt"></i> Sign In</span>
+          <span id="btnSpinner" style="display:none"><i class="fas fa-circle-notch fa-spin"></i> Signing in…</span>
+        </button>
+      </form>
+
+      <!-- Forgot password form -->
+      <div id="forgotForm" style="display:none">
+        <p class="forgot-desc"><i class="fas fa-envelope-open-text"></i> Enter your email and we'll send a password reset link.</p>
+        <div class="form-group">
+          <label for="resetEmail">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="resetEmail" placeholder="admin@swiftshipglobal.com" />
+          </div>
+        </div>
+        <div class="forgot-actions">
+          <button type="button" class="btn-secondary" id="backToLoginBtn"><i class="fas fa-arrow-left"></i> Back</button>
+          <button type="button" class="btn-login" id="sendResetBtn" style="flex:1">
+            <span id="resetBtnText">Send Reset Email</span>
+            <span id="resetSpinner" style="display:none"><i class="fas fa-circle-notch fa-spin"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <p class="back-link"><a href="/"><i class="fas fa-arrow-left"></i> Back to main website</a></p>
+  </div>
+
+  <script src="/admin/admin-app.js"></script>
+</body>
+</html>

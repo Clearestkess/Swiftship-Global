@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftShip Global — Transport &amp; Logistics Service</title>
+  <meta name="description" content="SwiftShip Global provides worldwide logistics services — sea freight, air freight, road transport, customs clearance and warehousing." />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Firebase SDK v9 compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header id="navbar">
+    <div class="topbar-info">
+      <div class="container">
+        <span><i class="fas fa-envelope"></i> &nbsp;info@swiftshipglobal.com</span>
+        <span><i class="fas fa-phone"></i> &nbsp;+1 (800) 123-4567 &nbsp;|&nbsp; 24/7 Support</span>
+        <span><a href="/admin/login.html"><i class="fas fa-lock"></i> Admin Login</a></span>
+      </div>
+    </div>
+    <nav class="nav-inner">
+      <div class="container">
+        <a class="nav-logo" href="#">
+          <div class="nav-logo-icon"><i class="fas fa-shipping-fast"></i></div>
+          <span class="nav-logo-text">Swift<span>Ship</span></span>
+        </a>
+        <ul id="navMenu">
+          <li><a href="#tracking">Track Shipment</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#quote" class="nav-cta btn btn-primary-c">Get a Quote</a></li>
+        </ul>
+        <button id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero section-py" id="home">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <div class="hero-tag"><i class="fas fa-globe"></i> Global Logistics Leader</div>
+        <h1>We Provide Full Range<br><span>Global Logistics</span><br>Solutions</h1>
+        <p>From sea freight to air cargo — we connect your business to the world with reliable, fast, and insured shipping solutions in 180+ countries.</p>
+        <div class="hero-btns">
+          <a href="#quote" class="btn btn-primary-c"><i class="fas fa-file-invoice"></i> Request a Quote</a>
+          <a href="#tracking" class="btn btn-outline"><i class="fas fa-map-marker-alt"></i> Track Shipment</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-val"><span data-count="180" data-suffix="+">0+</span></div>
+            <div class="hero-stat-label">Countries Served</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-val"><span data-count="50000" data-suffix="+">0+</span></div>
+            <div class="hero-stat-label">Shipments Delivered</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-val"><span data-count="99">0</span><span style="color:var(--primary)">%</span></div>
+            <div class="hero-stat-label">On-Time Delivery</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 60L48 50C96 40 192 20 288 15C384 10 480 20 576 25C672 30 768 30 864 25C960 20 1056 10 1152 10C1248 10 1344 20 1392 25L1440 30V60H0Z" fill="#f8fafc"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── TRACKING ── -->
+  <section class="tracking-section section-py" id="tracking">
+    <div class="container">
+      <div style="text-align:center;max-width:600px;margin:0 auto 40px">
+        <span class="section-tag">Track Your Shipment</span>
+        <h2 class="section-title">Real-Time <span>Tracking</span></h2>
+        <p class="section-desc">Enter your tracking ID below to get the current status and timeline of your shipment.</p>
+      </div>
+      <div class="tracking-box">
+        <form id="trackingForm" class="tracking-form">
+          <input type="text" id="trackInput" placeholder="Enter tracking ID (e.g. SWG-DEMO001ABC)" />
+          <button type="submit" class="btn btn-primary-c"><i class="fas fa-search"></i> Track</button>
+        </form>
+        <div class="track-demos">
+          Try demo:
+          <button type="button" data-track-demo="SWG-DEMO001ABC">SWG-DEMO001ABC</button>
+          <button type="button" data-track-demo="SWG-DEMO002XYZ">SWG-DEMO002XYZ</button>
+          <button type="button" data-track-demo="SWG-DEMO003DEL">SWG-DEMO003DEL</button>
+        </div>
+        <div id="trackResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURES STRIP ── -->
+  <section class="features-strip">
+    <div class="container">
+      <div class="feature-item slide-up">
+        <div class="feature-icon"><i class="fas fa-globe-americas"></i></div>
+        <div class="feature-text"><strong>Worldwide Service</strong><span>No restrictions — we ship everywhere</span></div>
+      </div>
+      <div class="feature-item slide-up" style="transition-delay:.1s">
+        <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+        <div class="feature-text"><strong>Certified &amp; Verified</strong><span>Award-winning logistics provider</span></div>
+      </div>
+      <div class="feature-item slide-up" style="transition-delay:.2s">
+        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+        <div class="feature-text"><strong>24/7 Support</strong><span>Always available for your queries</span></div>
+      </div>
+      <div class="feature-item slide-up" style="transition-delay:.3s">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="feature-text"><strong>Fully Insured</strong><span>Every shipment fully protected</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="about section-py" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-images slide-left">
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&auto=format&fit=crop" alt="Our team at work" class="about-img-main" />
+          <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&auto=format&fit=crop" alt="Warehouse operations" class="about-img-secondary" />
+          <div class="about-badge">
+            <strong>20+</strong>
+            <span>Years Experience</span>
+          </div>
+        </div>
+        <div class="slide-right">
+          <span class="section-tag">About Us</span>
+          <h2 class="section-title">Trusted Logistics Partner <span>Since 2004</span></h2>
+          <p class="section-desc">We take a bottom-line approach to each project. Our clients consistently experience enhanced supply chain efficiency, reduced costs, and on-time deliveries — thanks to our expert team and global network.</p>
+          <div class="about-features">
+            <div class="about-feature"><i class="fas fa-check-circle"></i><span>ISO-certified warehousing and handling</span></div>
+            <div class="about-feature"><i class="fas fa-check-circle"></i><span>Real-time tracking for every shipment</span></div>
+            <div class="about-feature"><i class="fas fa-check-circle"></i><span>Dedicated account manager per client</span></div>
+            <div class="about-feature"><i class="fas fa-check-circle"></i><span>Fully insured cargo from pickup to delivery</span></div>
+            <div class="about-feature"><i class="fas fa-check-circle"></i><span>Customs clearance in 180+ countries</span></div>
+          </div>
+          <a href="#quote" class="btn btn-primary-c"><i class="fas fa-paper-plane"></i> Request a Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section class="services section-py" id="services">
+    <div class="container">
+      <div style="text-align:center;max-width:600px;margin:0 auto">
+        <span class="section-tag">Our Services</span>
+        <h2 class="section-title">Comprehensive <span>Logistics</span> Solutions</h2>
+        <p class="section-desc">End-to-end supply chain management tailored to your business needs.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <div class="service-icon"><i class="fas fa-ship"></i></div>
+          <h3>Sea Freight</h3>
+          <p>FCL and LCL ocean freight services with competitive rates and reliable transit times to any port worldwide.</p>
+        </div>
+        <div class="service-card fade-in" style="transition-delay:.1s">
+          <div class="service-icon"><i class="fas fa-plane"></i></div>
+          <h3>Air Freight</h3>
+          <p>Express and standard air cargo solutions for time-sensitive shipments with global airline partnerships.</p>
+        </div>
+        <div class="service-card fade-in" style="transition-delay:.2s">
+          <div class="service-icon"><i class="fas fa-truck"></i></div>
+          <h3>Road Freight</h3>
+          <p>FTL and LTL trucking services across North America and Europe with GPS-tracked fleets.</p>
+        </div>
+        <div class="service-card fade-in" style="transition-delay:.3s">
+          <div class="service-icon"><i class="fas fa-train"></i></div>
+          <h3>Rail Freight</h3>
+          <p>Cost-effective rail transport solutions for bulk cargo between major industrial hubs.</p>
+        </div>
+        <div class="service-card fade-in" style="transition-delay:.4s">
+          <div class="service-icon"><i class="fas fa-warehouse"></i></div>
+          <h3>Warehousing</h3>
+          <p>State-of-the-art storage, inventory management, and distribution center operations.</p>
+        </div>
+        <div class="service-card fade-in" style="transition-delay:.5s">
+          <div class="service-icon"><i class="fas fa-clipboard-check"></i></div>
+          <h3>Customs Clearance</h3>
+          <p>Expert customs brokerage services to ensure smooth clearance in every destination country.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY US ── -->
+  <section class="why-us section-py">
+    <div class="container">
+      <div class="why-us-grid">
+        <div class="slide-left">
+          <span class="section-tag">Why Choose Us</span>
+          <h2 class="section-title">We Deliver <span>Excellence</span><br>Every Time</h2>
+          <p class="section-desc">Our performance metrics speak for themselves. We set industry benchmarks that others strive to reach.</p>
+          <div class="why-points">
+            <div class="why-point"><i class="fas fa-check-circle"></i><span>ISO 9001:2015 Certified</span></div>
+            <div class="why-point"><i class="fas fa-check-circle"></i><span>AEO Accredited</span></div>
+            <div class="why-point"><i class="fas fa-check-circle"></i><span>IATA Member</span></div>
+            <div class="why-point"><i class="fas fa-check-circle"></i><span>24/7 Operations Center</span></div>
+          </div>
+        </div>
+        <div class="slide-right">
+          <div class="progress-item">
+            <div class="progress-header"><span>On-Time Delivery Rate</span><span>99.7%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="99.7"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-header"><span>Customer Satisfaction</span><span>98%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="98"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-header"><span>Claims Free Rate</span><span>97%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="97"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-header"><span>Global Network Coverage</span><span>95%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="95"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS / COUNTERS ── -->
+  <section class="counters">
+    <div class="container">
+      <div class="counters-grid">
+        <div class="counter-item fade-in">
+          <div class="counter-icon"><i class="fas fa-trophy"></i></div>
+          <div class="counter-num" data-count="48" data-suffix="+">0+</div>
+          <div class="counter-label">Awards Won</div>
+        </div>
+        <div class="counter-item fade-in" style="transition-delay:.1s">
+          <div class="counter-icon"><i class="fas fa-handshake"></i></div>
+          <div class="counter-num" data-count="3500" data-suffix="+">0+</div>
+          <div class="counter-label">Happy Clients</div>
+        </div>
+        <div class="counter-item fade-in" style="transition-delay:.2s">
+          <div class="counter-icon"><i class="fas fa-box"></i></div>
+          <div class="counter-num" data-count="50000" data-suffix="+">0+</div>
+          <div class="counter-label">Shipments Done</div>
+        </div>
+        <div class="counter-item fade-in" style="transition-delay:.3s">
+          <div class="counter-icon"><i class="fas fa-globe"></i></div>
+          <div class="counter-num" data-count="180" data-suffix="+">0+</div>
+          <div class="counter-label">Countries Covered</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section class="projects section-py" id="projects">
+    <div class="container">
+      <div class="projects-header">
+        <div>
+          <span class="section-tag">Our Projects</span>
+          <h2 class="section-title">Recent <span>Completed</span> Projects</h2>
+        </div>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?w=500&auto=format&fit=crop" alt="Sea freight project" />
+          <div class="project-overlay"><div class="project-tag">Sea Freight</div><h4>Trans-Pacific Container Shipment</h4></div>
+        </div>
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=500&auto=format&fit=crop" alt="Air freight project" />
+          <div class="project-overlay"><div class="project-tag">Air Freight</div><h4>Time-Critical Medical Supplies</h4></div>
+        </div>
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=500&auto=format&fit=crop" alt="Road freight project" />
+          <div class="project-overlay"><div class="project-tag">Road Freight</div><h4>Cross-Country Retail Distribution</h4></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUOTE FORM ── -->
+  <section class="quote-section section-py" id="quote">
+    <div class="container">
+      <div class="quote-wrapper">
+        <div class="slide-left">
+          <div class="quote-info">
+            <span class="section-tag" style="color:#f59e0b">Get a Quote</span>
+            <h2 class="section-title">Request a <span style="color:var(--primary)">Free Quote</span></h2>
+            <p class="section-desc">Tell us about your shipment and we'll provide a tailored solution within 24 hours.</p>
+            <div class="quote-benefits">
+              <div class="quote-benefit">
+                <div class="qb-icon"><i class="fas fa-clock"></i></div>
+                <div class="qb-text"><strong>Fast Response</strong><span>Reply within 24 hours</span></div>
+              </div>
+              <div class="quote-benefit">
+                <div class="qb-icon"><i class="fas fa-tags"></i></div>
+                <div class="qb-text"><strong>Competitive Rates</strong><span>Best prices guaranteed</span></div>
+              </div>
+              <div class="quote-benefit">
+                <div class="qb-icon"><i class="fas fa-user-tie"></i></div>
+                <div class="qb-text"><strong>Dedicated Agent</strong><span>Personal account manager</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-right">
+          <div class="quote-form-card">
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:20px;color:#1e3a5f">Shipment Details</h3>
+            <input type="text" id="q_hp" name="q_hp" style="display:none;visibility:hidden" tabindex="-1" autocomplete="off" />
+            <div id="quoteError" class="form-alert form-alert-error"></div>
+            <div id="quoteSuccess" class="form-alert form-alert-success"></div>
+            <form id="quoteForm" novalidate>
+              <div class="form-row-2">
+                <div class="form-group-q">
+                  <label>Full Name *</label>
+                  <input type="text" id="qName" required />
+                  <span class="field-error-q" id="qNameErr"></span>
+                </div>
+                <div class="form-group-q">
+                  <label>Company</label>
+                  <input type="text" id="qCompany" />
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group-q">
+                  <label>Email Address *</label>
+                  <input type="email" id="qEmail" required />
+                  <span class="field-error-q" id="qEmailErr"></span>
+                </div>
+                <div class="form-group-q">
+                  <label>Phone Number</label>
+                  <input type="tel" id="qPhone" />
+                  <span class="field-error-q" id="qPhoneErr"></span>
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group-q">
+                  <label>Origin *</label>
+                  <input type="text" id="qOrigin" placeholder="City, Country" required />
+                  <span class="field-error-q" id="qOriginErr"></span>
+                </div>
+                <div class="form-group-q">
+                  <label>Destination *</label>
+                  <input type="text" id="qDestination" placeholder="City, Country" required />
+                  <span class="field-error-q" id="qDestinationErr"></span>
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group-q">
+                  <label>Cargo Type *</label>
+                  <select id="qCargoType" required>
+                    <option value="">Select type</option>
+                    <option>General Cargo</option>
+                    <option>Electronics</option>
+                    <option>Machinery</option>
+                    <option>Perishables / Food</option>
+                    <option>Chemicals / Hazmat</option>
+                    <option>Automobiles</option>
+                    <option>Pharmaceuticals</option>
+                    <option>Textiles / Apparel</option>
+                    <option>Documents / Courier</option>
+                    <option>Other</option>
+                  </select>
+                  <span class="field-error-q" id="qCargoTypeErr"></span>
+                </div>
+                <div class="form-group-q">
+                  <label>Shipment Mode *</label>
+                  <select id="qMode" required>
+                    <option value="">Select mode</option>
+                    <option>Sea Freight (FCL)</option>
+                    <option>Sea Freight (LCL)</option>
+                    <option>Air Freight (Express)</option>
+                    <option>Air Freight (Standard)</option>
+                    <option>Road Freight (FTL)</option>
+                    <option>Road Freight (LTL)</option>
+                    <option>Rail Freight</option>
+                    <option>Multimodal</option>
+                  </select>
+                  <span class="field-error-q" id="qModeErr"></span>
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group-q">
+                  <label>Weight (kg)</label>
+                  <input type="number" id="qWeight" placeholder="e.g. 500" min="0" />
+                </div>
+                <div class="form-group-q">
+                  <label>Volume (m³)</label>
+                  <input type="number" id="qVolume" placeholder="e.g. 2.5" min="0" step="0.1" />
+                </div>
+              </div>
+              <div class="form-group-q">
+                <label>Additional Information</label>
+                <textarea id="qMessage" rows="4" maxlength="500" placeholder="Describe your cargo, special requirements, etc."></textarea>
+                <div class="msg-counter"><span id="qMsgCounter">0/500</span></div>
+              </div>
+              <div class="consent-row">
+                <input type="checkbox" id="qConsent" />
+                <label for="qConsent">I agree to the <a href="#" style="color:var(--primary)">Privacy Policy</a> and consent to being contacted about this quote.</label>
+              </div>
+              <button type="submit" class="btn btn-primary-c" id="quoteSendBtn" style="width:100%;justify-content:center">
+                <i class="fas fa-paper-plane"></i> Submit Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEAM ── -->
+  <section class="team-section team-section--premium" id="team">
+    <div class="container">
+      <div class="section-header team-section__header">
+        <span class="team-section__eyebrow">Leadership Team</span>
+        <h2>Leadership Behind Every Shipment</h2>
+        <p>
+          SwiftShip's leadership team brings together expertise in freight operations,
+          customs compliance, warehousing, and client strategy to keep complex supply
+          chains moving with confidence.
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <article class="team-card">
+          <div class="team-card__media">
+            <div class="team-card__avatar">AK</div>
+          </div>
+          <div class="team-card__content">
+            <span class="team-card__tag">Freight Strategy</span>
+            <h3>Adrian Keller</h3>
+            <p class="team-card__role">Chief Logistics Officer</p>
+            <p class="team-card__bio">
+              Leads global freight planning, route efficiency, and multimodal shipment
+              execution across time-sensitive supply chains.
+            </p>
+          </div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-card__media">
+            <div class="team-card__avatar">SR</div>
+          </div>
+          <div class="team-card__content">
+            <span class="team-card__tag">Customs Compliance</span>
+            <h3>Sofia Rahman</h3>
+            <p class="team-card__role">Director of Customs &amp; Compliance</p>
+            <p class="team-card__bio">
+              Oversees documentation accuracy, trade compliance, and cross-border
+              clearance strategy for international cargo movement.
+            </p>
+          </div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-card__media">
+            <div class="team-card__avatar">ME</div>
+          </div>
+          <div class="team-card__content">
+            <span class="team-card__tag">Fulfillment Operations</span>
+            <h3>Marcus Ellison</h3>
+            <p class="team-card__role">Head of Warehousing &amp; Fulfillment</p>
+            <p class="team-card__bio">
+              Manages storage operations, fulfillment precision, and dispatch
+              coordination for scalable distribution workflows.
+            </p>
+          </div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-card__media">
+            <div class="team-card__avatar">EP</div>
+          </div>
+          <div class="team-card__content">
+            <span class="team-card__tag">Client Success</span>
+            <h3>Elena Park</h3>
+            <p class="team-card__role">VP of Client Success</p>
+            <p class="team-card__bio">
+              Partners with enterprise clients to improve shipping visibility,
+              service continuity, and delivery performance.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="team-trust-strip">
+        <span>24/7 Operational Oversight</span>
+        <span>Cross-Border Expertise</span>
+        <span>Warehouse Precision</span>
+        <span>Dedicated Client Leadership</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="contact-section section-py" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="slide-left">
+          <span class="section-tag">Contact Us</span>
+          <h2 class="section-title">Get In <span>Touch</span></h2>
+          <p class="section-desc" style="margin-bottom:36px">Have a question or need a custom logistics solution? Reach out — our team is ready to help.</p>
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div><div class="ci-title">Office Address</div><div class="ci-val">123 Logistics Blvd, Suite 400, New York, NY 10001</div></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
+            <div><div class="ci-title">Phone Number</div><div class="ci-val">+1 (800) 123-4567</div></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+            <div><div class="ci-title">Email Address</div><div class="ci-val">info@swiftshipglobal.com</div></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fas fa-clock"></i></div>
+            <div><div class="ci-title">Working Hours</div><div class="ci-val">Mon–Fri: 8am–8pm &nbsp;|&nbsp; Sat: 9am–4pm</div></div>
+          </div>
+        </div>
+        <div class="slide-right">
+          <div class="contact-form-card">
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:20px;color:#1e3a5f">Send a Message</h3>
+            <input type="text" id="c_hp" name="c_hp" style="display:none;visibility:hidden" tabindex="-1" autocomplete="off" />
+            <div id="contactError" class="form-alert form-alert-error"></div>
+            <div id="contactSuccess" class="form-alert form-alert-success"></div>
+            <form id="contactForm" novalidate>
+              <div class="form-row-2">
+                <div class="form-group-q">
+                  <label>Your Name *</label>
+                  <input type="text" id="cName" required />
+                  <span class="field-error-q" id="cNameErr"></span>
+                </div>
+                <div class="form-group-q">
+                  <label>Email Address *</label>
+                  <input type="email" id="cEmail" required />
+                  <span class="field-error-q" id="cEmailErr"></span>
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group-q">
+                  <label>Phone Number</label>
+                  <input type="tel" id="cPhone" />
+                </div>
+                <div class="form-group-q">
+                  <label>Subject *</label>
+                  <select id="cSubject" required>
+                    <option value="">Select subject</option>
+                    <option>General Inquiry</option>
+                    <option>Quote Request</option>
+                    <option>Shipment Status</option>
+                    <option>Complaint / Issue</option>
+                    <option>Partnership</option>
+                    <option>Other</option>
+                  </select>
+                  <span class="field-error-q" id="cSubjectErr"></span>
+                </div>
+              </div>
+              <div class="form-group-q">
+                <label>Message *</label>
+                <textarea id="cMessage" rows="5" required placeholder="Write your message here…"></textarea>
+                <span class="field-error-q" id="cMessageErr"></span>
+              </div>
+              <button type="submit" class="btn btn-primary-c" id="contactSendBtn" style="width:100%;justify-content:center">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PARTNERS ── -->
+  <section class="partners">
+    <div class="container">
+      <div class="partners-title">Trusted Partners &amp; Certifications</div>
+      <div class="partners-logos">
+        <div class="partner-logo">DHL</div>
+        <div class="partner-logo">FEDEX</div>
+        <div class="partner-logo">MAERSK</div>
+        <div class="partner-logo">MSC</div>
+        <div class="partner-logo">CMA CGM</div>
+        <div class="partner-logo">UPS</div>
+        <div class="partner-logo">LUFTHANSA CARGO</div>
+        <div class="partner-logo">CEVA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon"><i class="fas fa-shipping-fast"></i></div>
+            <span class="nav-logo-text">Swift<span>Ship</span></span>
+          </div>
+          <p>Delivering your world — one shipment at a time. Trusted by 3,500+ businesses globally for reliable, insured, and on-time logistics.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#tracking">Track Shipment</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Sea Freight</a></li>
+            <li><a href="#services">Air Freight</a></li>
+            <li><a href="#services">Road Freight</a></li>
+            <li><a href="#services">Rail Freight</a></li>
+            <li><a href="#services">Warehousing</a></li>
+            <li><a href="#services">Customs Clearance</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter">
+          <h4>Newsletter</h4>
+          <p style="font-size:13px;margin-bottom:8px;color:rgba(255,255,255,.6)">Get logistics updates and industry news.</p>
+          <form onsubmit="event.preventDefault();this.innerHTML='<p style=\'color:#22c55e;font-size:13px\'>&#10003; Thank you for subscribing!</p>'">
+            <input type="email" placeholder="Your email address" />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <span>© 2026 SwiftShip Global. All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms of Service</a> &nbsp;|&nbsp; <a href="/admin/login.html">Admin</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ── -->
+  <script src="/js/firebase-config.js"></script>
+  <script src="/js/emailjs-config.js"></script>
+  <script src="/js/tracking.js"></script>
+  <script src="/js/forms.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- Progress bar animation on scroll -->
+  <script>
+    const progObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fill = entry.target;
+          fill.style.width = fill.dataset.width + '%';
+          progObserver.unobserve(fill);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.progress-fill').forEach(el => progObserver.observe(el));
+  </script>
+
+  <!-- ── LIVE CHAT WIDGET ── -->
+  <button id="chatToggleBtn" class="chat-fab" aria-label="Open live chat" aria-expanded="false">
+    <i class="fas fa-comment-dots chat-fab-icon-open"></i>
+    <i class="fas fa-times chat-fab-icon-close"></i>
+    <span class="chat-badge" id="chatBadge" style="display:none">1</span>
+  </button>
+
+  <div id="chatWindow" class="chat-window" role="dialog" aria-label="Live Chat" aria-modal="true">
+    <header class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-agent-avatar">SS</div>
+        <div>
+          <div class="chat-agent-name">SwiftShip Support</div>
+          <div class="chat-agent-status"><span class="chat-online-dot"></span> Online — typically replies instantly</div>
+        </div>
+      </div>
+      <button id="chatCloseBtn" class="chat-close-btn" aria-label="Close chat"><i class="fas fa-times"></i></button>
+    </header>
+    <div id="chatBody" class="chat-body"></div>
+    <footer class="chat-footer">
+      <div class="chat-input-row">
+        <textarea id="chatInput" class="chat-input" placeholder="Type a message…" rows="1" maxlength="1000" aria-label="Chat message"></textarea>
+        <button id="chatSendBtn" class="chat-send-btn" disabled aria-label="Send message">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+      <div class="chat-footer-note"><i class="fas fa-lock"></i> Secured by SwiftShip Global</div>
+    </footer>
+  </div>
+
+  <script src="/js/livechat.js"></script>
+</body>
+</html>

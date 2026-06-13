@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function adminDocumentExists() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/admin_users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admin_users/$(request.auth.uid)).data.active == true;
+    }
+
+    function isAdmin() {
+      return signedIn() && (request.auth.token.admin == true || adminDocumentExists());
+    }
+
+    match /admin_users/{userId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    match /quotes/{quoteId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /contacts/{contactId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /live_chats/{sessionId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+
+      match /messages/{messageId} {
+        allow create: if true;
+        allow read, update, delete: if isAdmin();
+      }
+    }
+
+    match /shipments/{shipmentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

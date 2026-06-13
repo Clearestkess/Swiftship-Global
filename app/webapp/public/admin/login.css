@@ -1,0 +1,538 @@
+/* =========================================
+   SwiftShip Admin — Login Page Styles
+   ========================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #e8612d;
+  --primary-dark: #c84e1f;
+  --secondary: #1e3a5f;
+  --dark: #0f172a;
+  --bg: #f8fafc;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background decorations */
+.login-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.bg-circle {
+  position: absolute; border-radius: 50%; opacity: 0.07;
+  background: radial-gradient(circle, var(--primary), transparent 70%);
+}
+.c1 { width: 600px; height: 600px; top: -200px; right: -200px; }
+.c2 { width: 400px; height: 400px; bottom: -150px; left: -150px; }
+.c3 { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+.login-wrapper {
+  width: 100%; max-width: 440px;
+  position: relative; z-index: 1;
+}
+
+/* ── Brand ── */
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  justify-content: center; margin-bottom: 28px;
+}
+.brand-icon {
+  width: 46px; height: 46px;
+  background: linear-gradient(135deg, var(--primary), #f59e0b);
+  border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; color: #fff; font-size: 20px;
+}
+.brand-name { display: block; font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+.brand-tag  { display: block; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+
+/* ── Card ── */
+.login-card {
+  background: var(--white); border-radius: 20px;
+  padding: 40px; box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+}
+
+.card-header { text-align: center; margin-bottom: 28px; }
+.card-header h1 { font-size: 22px; font-weight: 800; color: var(--secondary); margin-bottom: 6px; }
+.card-header p  { font-size: 14px; color: var(--text-light); line-height: 1.5; }
+
+/* ── Alerts ── */
+.alert {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-radius: 10px;
+  font-size: 14px; margin-bottom: 16px;
+  line-height: 1.5;
+}
+.alert i { font-size: 16px; flex-shrink: 0; }
+.alert-error   { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
+.alert-success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+
+/* ── Form ── */
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: var(--text-light); text-transform: uppercase;
+  letter-spacing: .5px; margin-bottom: 7px;
+}
+.input-wrapper { position: relative; }
+.input-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-light); font-size: 14px; pointer-events: none;
+}
+.input-wrapper input {
+  width: 100%; padding: 12px 16px 12px 42px;
+  border: 2px solid var(--border); border-radius: 10px;
+  font-size: 14px; font-family: inherit; color: var(--text);
+  outline: none; transition: border-color .2s;
+  background: var(--bg);
+}
+.input-wrapper input:focus { border-color: var(--primary); background: #fff; }
+.toggle-pw {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  color: var(--text-light); font-size: 15px; padding: 4px;
+}
+.toggle-pw:hover { color: var(--text); }
+.field-error { display: block; color: #ef4444; font-size: 12px; margin-top: 5px; }
+
+.form-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; font-size: 13px;
+}
+.checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-light); }
+.checkbox-label input { accent-color: var(--primary); }
+.link-btn { background: none; border: none; color: var(--primary); font-size: 13px; cursor: pointer; padding: 0; }
+.link-btn:hover { text-decoration: underline; }
+
+/* ── Buttons ── */
+.btn-login {
+  width: 100%; padding: 14px; background: var(--primary); color: #fff;
+  border: none; border-radius: 10px; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: background .2s, transform .2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-login:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-login:disabled { opacity: .6; cursor: not-allowed; }
+.spinner { display: inline-flex; align-items: center; }
+.btn-secondary {
+  padding: 12px 20px; background: var(--bg); color: var(--text);
+  border: 2px solid var(--border); border-radius: 10px; font-size: 14px;
+  font-weight: 600; cursor: pointer; transition: background .2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-secondary:hover { background: var(--border); }
+
+/* ── Forgot ── */
+.forgot-desc { font-size: 14px; color: var(--text-light); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.forgot-desc i { color: var(--primary); }
+.forgot-actions { display: flex; gap: 12px; margin-top: 8px; }
+
+/* ── Back link ── */
+.back-link { text-align: center; margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.5); }
+.back-link a { color: rgba(255,255,255,0.7); transition: color .2s; display: inline-flex; align-items: center; gap: 6px; }
+.back-link a:hover { color: var(--primary); }
+
+@media (max-width: 480px) {
+  .login-card { padding: 28px 20px; }
+  .forgot-actions { flex-direction: column; }
+}
+
+/* =========================================
+   SwiftShip Admin — Dashboard Styles
+   ========================================= */
+body.dashboard-active {
+  display: block;
+  overflow: auto;
+}
+
+body.dashboard-active .login-wrapper {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.login-wrapper.dashboard-mode .brand {
+  justify-content: flex-start;
+}
+
+.login-card.dashboard-card {
+  padding: 28px;
+}
+
+.dashboard-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.dashboard-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.dashboard-topbar h2,
+.panel-head h3 {
+  color: var(--secondary);
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.dashboard-subtitle {
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.dashboard-top-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dashboard-signout {
+  width: auto;
+  padding-inline: 18px;
+}
+
+.dashboard-notice,
+.dashboard-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 14px 16px;
+  border-radius: 14px;
+}
+
+.dashboard-loading {
+  justify-content: center;
+  min-height: 220px;
+  flex-direction: column;
+}
+
+.dashboard-loading i {
+  font-size: 28px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+  border: 1px solid #fed7aa;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.stat-card span {
+  display: block;
+  color: var(--text-light);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.stat-card strong {
+  font-size: 32px;
+  color: var(--secondary);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.95fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.dashboard-main,
+.dashboard-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panel-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.shipment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.form-grid label,
+.form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-grid span,
+.form-block span,
+.admin-item-actions span {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--text-light);
+}
+
+.form-grid input,
+.form-grid select,
+.form-block textarea,
+.admin-item-actions select,
+.row-actions select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font: inherit;
+  color: var(--text);
+}
+
+.form-block textarea {
+  resize: vertical;
+}
+
+.panel-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.panel-actions .btn-login {
+  width: auto;
+  padding-inline: 18px;
+}
+
+.panel-list,
+.stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-item-card,
+.admin-list-row,
+.chat-card,
+.empty-state {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  background: #f8fafc;
+}
+
+.admin-item-top,
+.chat-card-head,
+.admin-list-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-item-top h4,
+.admin-list-row strong,
+.chat-card strong {
+  color: var(--secondary);
+  font-size: 16px;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.meta-grid span,
+.admin-list-row p,
+.chat-card p {
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+.meta-grid strong,
+.admin-list-row small,
+.chat-card small {
+  display: block;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.admin-item-actions,
+.row-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-item-actions label {
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-small {
+  width: auto;
+  padding: 10px 14px;
+}
+
+.pill,
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pill-primary {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.pill-success {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.pill-muted {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.status-badge {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.status-processing,
+.status-new { background: #fff7ed; color: #c2410c; }
+.status-in-transit,
+.status-reviewing { background: #eff6ff; color: #1d4ed8; }
+.status-customs-clearance,
+.status-quoted { background: #f5f3ff; color: #6d28d9; }
+.status-out-for-delivery { background: #ecfeff; color: #0f766e; }
+.status-delivered,
+.status-closed { background: #ecfdf5; color: #047857; }
+
+.is-unread {
+  border-color: #fdba74;
+  background: #fff7ed;
+}
+
+.chat-card p {
+  margin: 10px 0 6px;
+}
+
+.empty-state {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  color: var(--text-light);
+}
+
+.empty-state i {
+  font-size: 24px;
+  color: var(--primary);
+}
+
+@media (max-width: 1080px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  body.dashboard-active {
+    padding: 14px;
+  }
+
+  .login-wrapper.dashboard-mode .brand,
+  .dashboard-topbar,
+  .admin-item-top,
+  .admin-list-row,
+  .chat-card-head {
+    flex-direction: column;
+  }
+
+  .login-card.dashboard-card {
+    padding: 18px;
+  }
+
+  .stats-grid,
+  .form-grid,
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-top-actions,
+  .admin-item-actions,
+  .row-actions {
+    width: 100%;
+  }
+
+  .dashboard-signout,
+  .dashboard-top-actions .btn-secondary,
+  .panel-actions .btn-login,
+  .btn-small {
+    width: 100%;
+    justify-content: center;
+  }
+}
